@@ -5,7 +5,6 @@ from werkzeug.security import generate_password_hash
 from werkzeug.security import check_password_hash
 import pandas as pd
 import secrets
-import pickle
 import joblib
 
 
@@ -41,8 +40,8 @@ def register():
         if existing_user:
             flash('Email déjà utilisé', 'danger')
             return redirect(url_for('register'))
-
-        hashed_password = generate_password_hash(password, method='sha256')
+        # Mise à jour de la formule de hashage des mots de passe
+        hashed_password = generate_password_hash(password, method='pbkdf2:sha256')
         # Créer un nouvel utilisateur avec les données du formulaire
         new_user = User(username=username, email=email, password_hash=hashed_password)
         # Ajouter le nouvel utilisateur à la base de données
@@ -77,7 +76,8 @@ def login():
 
         # Vérifie si le mot de passe est correct
         if not  user or not check_password_hash(user.password_hash, password):
-            flash("<div class='row center'><h1>Email ou mot de passe incorrect</h1></div>")
+            Message_erreur = "Email ou mot de passe incorrect"
+            flash(Message_erreur)
             return redirect(url_for('login'))
         else:
             # Connecte l'utilisateur
@@ -85,7 +85,7 @@ def login():
             # Redirige l'utilisateur vers la page d'accueil
             return redirect(url_for('index'))
     # Affiche le formulaire de connexion
-    return render_template('login.html')
+    return render_template('login.html', Erreur = Message_erreur)
 
 @app.route('/logout')
 def logout():
@@ -126,25 +126,17 @@ def dashboard():
 
 
 # Import des modèles
-mdl1 = 'bagging_regressor_restraint_3.pkl'
-mdl2 = 'ExtraTreesRegressor_full-10.pkl'
-mdl3 = 'ext_tree.joblib'
-
-# route de control_panel pour choisir les modèles
-modeles = [mdl1, mdl2, mdl3]
+md = 'ext_tree.joblib'
 
 @app.route('/control_panel')
 @login_required
 def control():
-    return render_template('control_panel.html', 
-                           modele01=modeles[0], 
-                           modele02=modeles[1], 
-                           modele03=modeles[2])
+    return render_template('control_panel.html', modele03=md)
 
 
 # On charge le modèle 'extra_tree.joblib'
-with open(mdl3, 'rb') as model:
-    model = joblib.load(model)
+with open(md, 'rb') as regression_model:
+    model = joblib.load(regression_model)
 
 
 # modele 01 : trois features

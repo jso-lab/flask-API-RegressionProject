@@ -41,7 +41,7 @@
           <li><a href="/">Accueil</a></li>
           <li><a href="/contact">Contact</a></li>
           {% if current_user.is_authenticated %}
-          <li><a href="/dashboard">Tableau de bord</a></li>
+          <li><a href="/dashboard">{{ current_user.username }}</a></li>
           <li><a href="/logout">Déconnexion</a></li>
           {% else %}
           <li><a href="/login">Connexion</a></li>
