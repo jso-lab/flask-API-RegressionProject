@@ -1,4 +1,4 @@
-# An API with Flask integrated a ML model
+# Application Python-Flask intégrant un modèle de régression 
 
 ## Avant-propos
 
