@@ -76,8 +76,8 @@ def login():
 
         # Vérifie si le mot de passe est correct
         if not  user or not check_password_hash(user.password_hash, password):
-            Message_erreur = "Email ou mot de passe incorrect"
-            flash(Message_erreur)
+          
+            flash("Email ou mot de passe incorrect")
             return redirect(url_for('login'))
         else:
             # Connecte l'utilisateur
@@ -85,7 +85,7 @@ def login():
             # Redirige l'utilisateur vers la page d'accueil
             return redirect(url_for('index'))
     # Affiche le formulaire de connexion
-    return render_template('login.html', Erreur = Message_erreur)
+    return render_template('login.html')
 
 @app.route('/logout')
 def logout():

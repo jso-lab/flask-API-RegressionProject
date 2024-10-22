@@ -20,7 +20,7 @@ Le site internet qui est présenté n'est pas un site officiel. Aucune donnée n
   Cette commande installe les librairies et les dépendances du projet.
 - Lancer le serveur Flask avec la commande 
   ` waitress-serve --listen=0.0.0.0:8000 app:app` 
-  cette commande lance le serveur [waitress](https://docs.pylonsproject.org/projects/waitress/en/stable/index.html) sur le port 8000. Vous pouvez donc vous rendre à l'adresse `http://12.0.0.1:800` pour accéder à la page d'accueil de l'application.
+  cette commande lance le serveur [waitress](https://docs.pylonsproject.org/projects/waitress/en/stable/index.html) sur le port 8000. Vous pouvez donc vous rendre à l'adresse `http://127.0.0.1:8000` pour accéder à la page d'accueil de l'application.
 
 ## Création de compte et navigation
 
